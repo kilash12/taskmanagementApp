@@ -14,21 +14,54 @@ from rest_framework.permissions import IsAuthenticated
 
 
 
+# class RegisterView(APIView):
+#     permission_classes = [AllowAny]
+
+#     def post(self, request):
+#         serializer = RegisterSerializer(data=request.data)
+
+#         if serializer.is_valid():
+#             serializer.save()
+
+#             return Response(
+#                 {"message": "User registered successfully."},
+#                 status=status.HTTP_201_CREATED,
+#             )
+
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class RegisterView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        serializer = RegisterSerializer(data=request.data)
+        try:
+            print("=" * 50)
+            print("REQUEST DATA:", request.data)
 
-        if serializer.is_valid():
-            serializer.save()
+            serializer = RegisterSerializer(data=request.data)
+
+            print("IS VALID:", serializer.is_valid())
+            print("ERRORS:", serializer.errors)
+
+            if serializer.is_valid():
+                user = serializer.save()
+                print("USER CREATED:", user.email)
+
+                return Response(
+                    {"message": "User registered successfully."},
+                    status=status.HTTP_201_CREATED,
+                )
+
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception as e:
+            import traceback
+            print(traceback.format_exc())
 
             return Response(
-                {"message": "User registered successfully."},
-                status=status.HTTP_201_CREATED,
+                {"error": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginView(APIView):
