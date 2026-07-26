@@ -29,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
+    "taskmanagement-backend-es89.onrender.com",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:5173",
