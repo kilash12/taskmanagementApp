@@ -69,8 +69,10 @@ class LoginView(APIView):
             key="refresh_token",
             value=str(refresh),
             httponly=True,
-            samesite="Lax",
-            secure=False,
+            # samesite="Lax",
+            # secure=False,
+            samesite="None",
+                secure=True,
             path="/",
         )
 
