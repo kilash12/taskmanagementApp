@@ -60,8 +60,10 @@ class LoginView(APIView):
             key="access_token",
             value=str(refresh.access_token),
             httponly=True,
-            samesite="Lax",
-            secure=False,      # True in production HTTPS
+            # samesite="Lax",
+            # secure=False,      # True in production HTTPS
+            samesite="None",
+secure=True,
             path="/",
         )
 
@@ -124,8 +126,10 @@ class RefreshTokenView(APIView):
                 key="access_token",
                 value=str(refresh.access_token),
                 httponly=True,
-                samesite="Lax",
-                secure=False,
+                # samesite="Lax",
+                # secure=False,
+                samesite="None",
+secure=True,
                 path="/",
             )
 
